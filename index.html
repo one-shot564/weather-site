@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather for now</title>
+</head>
+<body>
+    <h3>Температура зараз у Києві</h3>
+    <h1><span id="weather"></span> C°</h1>
+
+
+    <script>
+
+        const weatherContainer = document.getElementById('weather');
+
+
+        function getWeather(){
+            fetch("http://api.openweathermap.org/data/2.5/weather?q=Kyiv&units=metric&lang=ru&appid=2024fdf1ecf409c654a8365eb8b8bc91")
+            .then(res => res.status < 400 ? res.json() : {})
+            .then(data => {
+                if(!!data){
+                    weatherContainer.innerText = data.main.temp;
+                }
+                else {
+                    weatherContainer.innerText = 'error'
+                }
+            })
+        }
+
+        getWeather();
+        setInterval(getWeather, 1000);
+
+    </script>
+</body>
+</html>
